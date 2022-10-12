@@ -41,6 +41,7 @@ class SimonSays {
     // ================= Methods ====================================
 
     // Initialize the Simon program
+    //Pure function
     init() {
         // With an onclick event execute the startGame method
         this.display.resetButton.disabled = true; // disable the start game button
@@ -110,6 +111,7 @@ class SimonSays {
     }
 
     // Starts the game loop
+    //Pure function
     startGame() {
         this.display.header.textContent = 'Simon Says Game';
 
@@ -130,29 +132,32 @@ class SimonSays {
     }
 
     // Updates the level and the buttons
+    //Pure function
     updateLevel(n) {
         this.level = n;
         this.display.level.textContent = `level: ${this.level + 1}`; // Change the content for the amount of level player have beat (starts at 0)
     }
-
+    //Pure function
     updatecounter(n)   {
         this.totalsteps = n + 1;
         this.display.counter.textContent = `Following steps: ${this.totalsteps}`;
     }
 
     // This methot sets the randoms input secuence
+    //Impure function
     createSequence() {
         return Array.from({ length: this.totalLevels }, () => this.getRandomColor()); // Create an array with length of the total level of the game and returns each of the random colors 
     }
 
     // Gets the random color for the secuence to follow
+    //Impure function
     getRandomColor() {
         return Math.floor(Math.random() * 4); // Returns a number between 0 and 3 randomly
         // Math.random() returns a random number between 0 and 1
         // It multiplays to 4 the random values to get numbers before 4 (0 to 3)
         // The Math.floor() method rounds a number down to the nearest integer, without this the numbers would be floats
     }
-
+    //Impure function
     showSequence() {
         this.blockedButtons = true;  // blocks the buttons to player
         let sequenceNumber = 0; // Starts the secuense
@@ -170,12 +175,12 @@ class SimonSays {
             }
         }, this.speed);
     }
-
+    //Pure function
     toggleButtonStyle(button) {
         button.classList.toggle('active'); // Adds the class to the buttons and simulates that the button is pressed
 
     }
-
+    //Impure function
     gameLost() { //Function used to notify a mistake to the player
         this.errorSound.play(); //Play an error sound
         this.userStep = 0; // Reset the user secuences to press
@@ -188,11 +193,11 @@ class SimonSays {
             this.showSequence(); //Call the current sequence again
         }
     }
-
+    
     clickButton(value) {
         !this.blockedButtons && this.validateChosenColor(value); // if buttons arent blocked so validates the color secuence
     }
-
+    //Impure function
     validateChosenColor(value) {
         if (this.sequence[this.userStep] === value) { //if the user stept secuense matches with the game secuense button is true
             this.totalsteps = this.totalsteps-1;
@@ -213,7 +218,7 @@ class SimonSays {
             this.updatecounter(this.level); // Reset the steps counter
         }
     }
-
+    //Pure function
     GameOver() {
         if (this.level === this.totalLevels) { // If player completes the game
             this.display.startButton.textContent = 'Play again'; // Changes the Play button text
@@ -229,7 +234,7 @@ class SimonSays {
         }
 
     }
-
+    //Impure function
     resetGame(){
         this.userStep = 0; // Reset the user secuences to press
 
